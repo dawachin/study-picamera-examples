@@ -26,7 +26,6 @@ class FaceDetector(object):
         frame = self.flip_if_needed(self.vs.read())
         frame = self.process_image(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
-        cv2.putText(jpeg, 'test')
         return jpeg.tobytes()
 
     def process_image(self, frame):
