@@ -26,6 +26,7 @@ class FaceDetector(object):
         frame = self.flip_if_needed(self.vs.read())
         frame = self.process_image(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
+        cv2.putText(jpeg, 'test')
         return jpeg.tobytes()
 
     def process_image(self, frame):
@@ -37,14 +38,12 @@ class FaceDetector(object):
         # detectMultiScaleメソッドで処理し、認識した顔の座標情報を取得する
         faces = self.face_cascade.detectMultiScale(gray, 1.3, 3)
 
-        cv2.putText(frame, 'test')
-
+        # cv2.putText(frame, 'test')
 
         # 取得した座標情報を元に、cv2.rectangleを使ってframe上に
         # 顔の位置を描画する
         for (x,y,w,h) in faces:
             cv2.rectangle(frame,(x,y),(x+w,y+h),(128,0,128),2)
-
 
         # frameを戻り値として返す
         return frame
